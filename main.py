@@ -3,8 +3,6 @@
 import pyodbc
 import config
 import smtplib
-import requests
-import asyncio
 from email.message import EmailMessage
 from mcp.server.fastmcp import FastMCP
 
@@ -22,8 +20,8 @@ def build_connection_string():
     )
 
 @mcp.tool()
-def send_email(email_string, subject, body):
-    """Sends an email to a email addresse which is string parameter with the specified subject and body."""
+def send_email_one_email(email_string, subject, body):
+    """Sends an email to a email address which is string parameter with the specified subject and body."""
     """:param email_string: email addresses which is a string is passed here to send the email to
         :param subject: Subject of the email
         :param body: Body of the email"""
@@ -45,10 +43,10 @@ def send_email(email_string, subject, body):
         print(f"Email sent to {email_string}")
 
 @mcp.tool()
-def send_email(email_tuple, subject, body):
-    """Sends an email to a list of email addresses which are enclosed in tuple with the specified subject and body."""
+def send_email_multiple_emails(email_tuple, subject, body):
+    """Sends an email to a list of email addresses which are enclosed in 'tuple' with the specified subject and body."""
     """:param email_tuple: Tuple of email addresses to send the email to
-        :param su   bject: Subject of the email
+        :param subject: Subject of the email
         :param body: Body of the email"""
     for email in email_tuple:
         msg = EmailMessage()
@@ -66,7 +64,7 @@ def send_email(email_tuple, subject, body):
             smtp.starttls()
             smtp.login(config.EMAIL_USERNAME, config.EMAIL_PASSWORD)
             smtp.send_message(msg)
-            print(f"✅ Email sent to {email}")
+            print(f"Email sent to {email}")
 
 @mcp.tool()
 def get_expired_users() :
@@ -103,7 +101,7 @@ def get_inactive_users_with_due() :
 
 @mcp.tool()
 def get_active_users_with_due() :
-    """Users with active subscriptions but payment due"""
+    """Users with active subscriptions but have payment due"""
     try:
         with pyodbc.connect(build_connection_string()) as conn:
             with conn.cursor() as cursor:
