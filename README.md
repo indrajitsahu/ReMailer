@@ -1,4 +1,4 @@
-# Remailer – Automated Subscription Renewal Emailer  
+# Remailer – Automated B2C Subscription Renewal Emailer  
 
 ## About  
 Automated Subscription Renewal Emailer built with **Python**, **SMTP**, and **Azure SQL DB**.  
@@ -82,3 +82,4 @@ Notify inactive users with pending dues
 - Enhance async database queries
 - UI dashboard for tracking email history
 - Docker container support
+
